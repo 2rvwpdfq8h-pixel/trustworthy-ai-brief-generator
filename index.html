@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trustworthy AI Brief Generator</title>
+  <style>
+    :root {
+      --color-background: #f5f5f5;
+      --color-surface: #ffffff;
+      --color-text: #1a1a1a;
+      --color-text-secondary: #666666;
+      --color-primary: #0066cc;
+      --color-primary-hover: #0052a3;
+      --color-success: #00aa00;
+      --color-border: #e0e0e0;
+      --color-input-bg: #fafafa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      font-size: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.5;
+      color: var(--color-text);
+      background-color: var(--color-background);
+    }
+    body { background-color: var(--color-background); }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+      color: white;
+      padding: 40px 20px;
+      margin: -40px -20px 40px -20px;
+      border-radius: 8px 8px 0 0;
+    }
+    .logo { font-size: 24px; font-weight: 700; letter-spacing: -1px; }
+    .subtitle { font-size: 16px; opacity: 0.9; margin-top: 8px; }
+    h2 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      margin-top: 4px;
+      color: var(--color-text);
+    }
+    .section-description {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .input-section, .output-section {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+    .output-section { display: none; }
+    .output-section.visible { display: block; }
+    .form-group { margin-bottom: 24px; }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--color-text);
+    }
+    input[type="text"], select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      font-size: 14px;
+      background-color: var(--color-input-bg);
+      color: var(--color-text);
+      transition: all 0.2s ease;
+    }
+    input[type="text"]:focus, select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    }
+    .form-description {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: 6px;
+    }
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: white;
+      flex: 1;
+      justify-content: center;
+    }
+    .btn-primary:hover {
+      background-color: var(--color-primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+    }
+    .btn-secondary {
+      background-color: #f0f0f0;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+    .btn-secondary:hover { background-color: #e8e8e8; }
+    .success-message {
+      background-color: #e8f5e9;
+      border: 1px solid #4caf50;
+      color: #2e7d32;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      display: none;
+      font-size: 13px;
+    }
+    .success-message.show {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .output-controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--color-border);
+      overflow-x: auto;
+    }
+    .tab-button {
+      padding: 12px 16px;
+      border: none;
+      background: none;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .tab-button.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .output-content {
+      background-color: var(--color-input-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+      color: var(--color-text);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .info-box {
+      background-color: #e3f2fd;
+      border-left: 4px solid var(--color-primary);
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #1565c0;
+    }
+    @media (max-width: 768px) {
+      .button-group { flex-direction: column; }
+      .btn-primary { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">🤖 Trustworthy AI Brief Generator</div>
+      <p class="subtitle">Generate a Deloitte-style Trustworthy AI brief tailored to your organisation, sector and geography.</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="input-section">
+      <h2>Organisation Details</h2>
+      <p class="section-description">
+        Enter the basic details and this tool will generate a complete Trustworthy AI brief you can refine for your client or internal stakeholders.
+      </p>
+
+      <div class="form-group">
+        <label for="orgName">Organisation Name *</label>
+        <input
+          type="text"
+          id="orgName"
+          placeholder="e.g., Scentre Group, Acme Retail Holdings, GlobalBank Ltd."
+        >
+        <p class="form-description">The organisation name is substituted throughout the brief and prompt.</p>
+      </div>
+
+      <div class="form-group">
+        <label for="industry">Industry Sector</label>
+        <select id="industry">
+          <option value="retail">Retail & Shopping Centres</option>
+          <option value="finance">Financial Services</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="technology">Technology & Software</option>
+          <option value="manufacturing">Manufacturing</option>
+          <option value="energy">Energy & Utilities</option>
+          <option value="telecommunications">Telecommunications</option>
+          <option value="logistics">Logistics & Supply Chain</option>
+          <option value="other">Other / General Commercial</option>
+        </select>
+        <p class="form-description">Used to tailor examples of AI opportunities and risks.</p>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Primary Location</label>
+        <select id="location">
+          <option value="australia">Australia Only</option>
+          <option value="au-nz">Australia & New Zealand</option>
+          <option value="global">Global with Australian operations</option>
+        </select>
+        <p class="form-description">Used mainly for the prompt and regulatory emphasis.</p>
+      </div>
+
+      <div class="info-box">
+        <strong>Tip:</strong> This generator is optimised for Australian use cases with Deloitte Trustworthy AI, Path to Scale, Australian Government Guidance for AI
+        Adoption, ISO 42001, NIST AI RMF and OECD AI incident concepts in mind. Use the “Prompt Summary” tab to reuse this pattern in other tools.
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="generateBrief()">
+          ✨ Generate Brief
+        </button>
+        <button class="btn-secondary" onclick="clearForm()">Clear</button>
+      </div>
+    </div>
+
+    <div class="output-section" id="outputSection">
+      <h2>Generated Brief</h2>
+
+      <div class="success-message" id="successMessage">
+        ✓ Brief generated successfully. Use the tabs to navigate sections, copy all, or download as Markdown.
+      </div>
+
+      <div class="output-controls">
+        <button class="btn-primary" onclick="copyAllToClipboard()">
+          📋 Copy All to Clipboard
+        </button>
+        <button class="btn-secondary" onclick="downloadAsMD()">
+          📥 Download as Markdown
+        </button>
+        <button class="btn-secondary" onclick="toggleFullscreen()">
+          🖥️ Fullscreen
+        </button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-button active" onclick="switchTab(event, 'executive')">Executive Summary</button>
+        <button class="tab-button" onclick="switchTab(event, 'company')">Company Overview</button>
+        <button class="tab-button" onclick="switchTab(event, 'opportunities')">Opportunities & Challenges</button>
+        <button class="tab-button" onclick="switchTab(event, 'regulations')">Regulations</button>
+        <button class="tab-button" onclick="switchTab(event, 'controls')">Controls & Metrics</button>
+        <button class="tab-button" onclick="switchTab(event, 'roadmap')">Roadmap</button>
+        <button class="tab-button" onclick="switchTab(event, 'prompt')">Prompt Summary</button>
+        <button class="tab-button" onclick="switchTab(event, 'all')">Full Document</button>
+      </div>
+
+      <div id="executive" class="tab-content active">
+        <div class="output-content" id="executive-output"></div>
+      </div>
+      <div id="company" class="tab-content">
+        <div class="output-content" id="company-output"></div>
+      </div>
+      <div id="opportunities" class="tab-content">
+        <div class="output-content" id="opportunities-output"></div>
+      </div>
+      <div id="regulations" class="tab-content">
+        <div class="output-content" id="regulations-output"></div>
+      </div>
+      <div id="controls" class="tab-content">
+        <div class="output-content" id="controls-output"></div>
+      </div>
+      <div id="roadmap" class="tab-content">
+        <div class="output-content" id="roadmap-output"></div>
+      </div>
+      <div id="prompt" class="tab-content">
+        <div class="output-content" id="prompt-output"></div>
+      </div>
+      <div id="all" class="tab-content">
+        <div class="output-content" id="all-output"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sectorSnippets = {
+      retail: {
+        opportunities: `### Sector-Specific AI Opportunities (Retail & Shopping Centres)
+- Retail media networks monetising first-party footfall and transaction data, with strong privacy and consent controls.
+- Hyper-personalised offers and in-centre experiences, balanced against Privacy Act and ACL constraints on profiling and claims.
+- Footfall and tenant analytics (non-biometric where possible) to optimise tenant mix, leasing and staffing.
+- Loss prevention and fraud analytics using transaction and behavioural data, avoiding high-risk facial recognition approaches.
+
+### Sector-Specific Risks (Retail)
+- Personalisation and tracking practices breaching Privacy Act obligations or OAIC guidance on surveillance.
+- AI-generated marketing content that is misleading or deceptive under ACL.
+- Use of CCTV or facial recognition in ways similar to Kmart/Bunnings incidents, creating high regulatory and reputational risk.`
+      },
+      finance: {
+        opportunities: `### Sector-Specific AI Opportunities (Financial Services)
+- Fraud detection and AML monitoring using real-time anomaly detection.
+- Credit and risk scoring models that refine pricing and capital allocation, within responsible lending and discrimination boundaries.
+- AI-enabled customer service (virtual assistants) and hardship detection with clear escalation pathways.
+
+### Sector-Specific Risks (Financial Services)
+- Algorithmic bias in credit, pricing or claims decisions attracting ASIC/APRA scrutiny and discrimination risks.
+- Model risk where black-box models cannot be explained to regulators or customers.
+- Mis-selling or poor product recommendations influenced by AI without appropriate controls.`
+      },
+      healthcare: {
+        opportunities: `### Sector-Specific AI Opportunities (Healthcare)
+- Clinical decision support for diagnostics, triage and treatment planning with clear human-in-the-loop.
+- Operational efficiency in scheduling, bed management and rostering.
+- Population health analytics using de-identified data for preventive care.
+
+### Sector-Specific Risks (Healthcare)
+- Diagnostic or triage errors leading to patient harm and liability.
+- Misuse of sensitive health data breaching Privacy Act and health records legislation.
+- Over-reliance on AI outputs in contexts where evidence bases are incomplete or biased.`
+      },
+      generic: {
+        opportunities: `### Sector-Specific AI Opportunities (Cross-Sector)
+- Productivity and automation for repetitive, document-heavy or workflow-intensive tasks.
+- Decision support for forecasting, resource allocation, pricing and maintenance.
+- Customer and stakeholder experience improvements via context-aware digital interactions.
+
+### Sector-Specific Risks (Cross-Sector)
+- Data protection and cyber risk from expanded AI tooling and data flows.
+- Hidden bias in models used for eligibility, prioritisation or pricing.
+- Loss of trust where stakeholders do not understand where AI is used or how decisions are made.`
+      }
+    };
+
+    const templateData = {
+      executiveSummary: `# TRUSTWORTHY AI BRIEF: {{ORG_NAME}}
+## FINAL FOR REVIEW
+
+---
+
+## EXECUTIVE SUMMARY
+
+This brief provides {{ORG_NAME}} with a comprehensive framework for adopting Trustworthy AI principles aligned with the Deloitte Trustworthy AI Framework (TAIF), Australian regulatory requirements, and international standards (ISO 42001, NIST AI RMF). The brief identifies material AI value and revenue opportunities whilst establishing governance controls to address regulatory compliance (including Privacy Act 1988 automated decision-making requirements, with a key deadline in December 2026 for transparency obligations) and regulatory/reputational risks evidenced by recent sector incidents.
+
+The roadmap recommends phased implementation over three years: Foundation (governance establishment), Governance Embedding (Privacy Act compliance and control build-out), Scaling Responsible AI (revenue and efficiency initiatives with embedded controls), and Advanced Maturity (ISO 42001 certification and next-generation AI applications). Success requires executive accountability, dedicated governance resources, and a cultural shift toward “building AI risk managers, not AI risk avoiders”.`,
+
+      companyOverview: `## 1. COMPANY OVERVIEW
+
+{{ORG_NAME}} operates in a competitive landscape with increasing reliance on data, analytics and digital channels. The organisation has invested in technology infrastructure and emerging AI capabilities across its operations. Current AI usage typically includes analytics, reporting and some automation, with significant upside in scaling AI in a governed, risk-aware manner.
+
+Key characteristics to validate in client conversations:
+- Material asset base and scale of operations
+- Multiple operating sites, channels or product lines
+- Diverse stakeholder base (customers, partners, regulators, communities)
+- Established technology and data infrastructure
+- Strategic focus on customer/tenant experience, operational efficiency and risk management`,
+
+      opportunitiesBase: `## 2. KEY STRATEGIC AI OPPORTUNITIES, ISSUES AND CHALLENGES
+
+### Cross-Cutting Revenue & Value Opportunities
+- Data-driven analytics platforms leveraging first-party operational data to provide stakeholders with precision insights and measurable ROI.
+- Personalised experiences and dynamic engagement across channels; benchmarks indicate 25–35% conversion uplift from well-governed personalisation.
+- Operational intelligence through predictive analytics for performance measurement, asset optimisation and resource allocation.
+- Operational excellence via predictive maintenance, energy optimisation and workflow automation reducing capex and opex.
+- Sustainability analytics tracking environmental performance and supporting ESG reporting.
+
+{{SECTOR_OPPS}}
+
+### Cross-Cutting Commercial and Regulatory Challenges
+- Privacy and data risk from collection and use of personal and sensitive information, particularly where automated decisions “significantly affect” individuals.
+- Algorithmic fairness and discrimination risk, including biased outcomes in eligibility, pricing, targeting or service access.
+- Privacy Act 1988 compliance for automated decision-making by December 2026 (transparency, logging, explainability, human review, notification, consent).
+- Customer and stakeholder trust: balancing data-driven capabilities with transparent, ethical practices and clear communication.
+- Vendor and third-party risk from external AI providers and cloud platforms handling sensitive data.
+- Organisational AI maturity: gaps in governance, roles, controls and AI literacy at Board, executive and operational levels.`,
+
+      regulations: `## 3. RELEVANT LOCAL AND INTERNATIONAL ARTIFICIAL INTELLIGENCE REGULATIONS AND LEGISLATION
+
+### Australia
+
+**Privacy Act 1988 (Cth) – Automated Decision-Making Transparency Provisions**
+- Scope: Organisations using personal information in automated decision-making that “significantly affects rights or interests” must comply by December 10, 2026 (Tranche 1).
+- Key requirements:
+  - Update privacy policies disclosing automated decision-making use, data types and decision categories.
+  - Notify individuals about automated decisions affecting them.
+  - Provide decision explanations upon request.
+  - Offer meaningful human review options for significant decisions.
+- Technical controls:
+  - Decision logging and audit trails.
+  - Explainability mechanisms.
+  - Human review workflows.
+  - Transparency notifications.
+  - Consent management.
+- Penalties: Administrative sanctions and potential Court-imposed penalties for serious non-compliance.
+
+**Australian Consumer Law (ACL)**
+- Prohibits misleading or deceptive conduct in trade or commerce (relevant to AI-driven marketing, pricing and claim substantiation).
+- Product liability for defects in AI-enabled goods/services creating safety risks.
+- Consumer guarantees requiring AI-enabled products and services to meet acceptable quality and fitness-for-purpose standards.
+
+**Guidance for AI Adoption (GfAA) – October 2025**
+- Six essential practices: Accountability, Understanding Impacts, Responsible Design/Development, Secure Deployment, Measurement/Monitoring, and Remediation.
+- Non-binding guidance that sets an expected benchmark for responsible AI governance in Australia.
+
+### International Standards and Frameworks
+
+**ISO 42001:2023 – Artificial Intelligence Management System (AIMS)**
+- Management system standard for developing, deploying and maintaining responsible AI systems.
+- Emphasises governance structures, risk and impact assessments, data protection, security and continuous improvement.
+- Certification available through accredited bodies; increasingly used to demonstrate AI governance maturity.
+
+**NIST AI Risk Management Framework (AI RMF 1.0)**
+- Four core functions: Govern, Map, Measure, Manage, applied across the AI lifecycle.
+- Provides a structured approach to identifying, assessing and managing AI risks, including generative AI-specific considerations through the NIST GAI Profile.`,
+
+      controls: `## 7. RECOMMENDED RISK MANAGEMENT CONTROLS AND ASSOCIATED METRICS
+
+### Framework: Five Priority Themes Aligned to Deloitte TAIF
+
+**Priority 1: Transparent and Explainable AI**
+- Privacy Impact Assessment, Customer Transparency and Notification, Decision Audit Trails.
+
+**Priority 2: Fair and Impartial AI**
+- Pre-Deployment Bias and Fairness Testing, Ongoing Fairness Monitoring, Model Retraining and Bias Mitigation.
+
+**Priority 3: Privacy and Secure AI**
+- Data Minimisation and Purpose Limitation, Consent and Opt-Out Mechanisms, Security Controls and Vendor Risk Management.
+
+**Priority 4: Robust and Reliable AI**
+- Model Validation, Testing, and Performance Monitoring, Human Oversight, Edge Case Documentation.
+
+**Priority 5: Responsible, Accountable and Contestable AI**
+- Governance Structure and Accountability, Decision Audit Trails and Contestation, Incident Response.
+
+### Example Metrics by Priority
+
+**Priority 1: Transparent and Explainable AI**
+- % of AI projects with documented Privacy Impact Assessment prior to deployment (target: 100%).
+- % of AI use cases with customer-facing disclosure where personal data is processed (target: 100%).
+- % of automated decisions with complete audit trails (target: 100%).
+
+**Priority 2: Fair and Impartial AI**
+- % of AI models with documented fairness testing across relevant subgroups (target: 100% for high-risk models).
+- Maximum variance in key performance metrics across demographic groups (target: <2%).
+- Average time from fairness issue detection to governance review (target: <1 week).
+
+**Priority 3: Privacy and Secure AI**
+- % of personal data encrypted at rest and in transit (target: 100% for sensitive data).
+- % of third-party AI vendors with documented security and privacy assessments (target: 100%).
+- Average time to process opt-out or access requests (target: <5 business days).
+
+**Priority 4: Robust and Reliable AI**
+- % of AI models with documented validation results before go-live (target: 100%).
+- Variance between in-production and baseline model accuracy (target: <1% over defined periods).
+- % of high-risk decisions subject to human review (target: 100%).
+
+**Priority 5: Responsible, Accountable and Contestable AI**
+- AI Governance Committee meeting frequency (target: at least monthly).
+- Average time to respond to customer/tenant decision contestation (target: <5 business days).
+- Average time from AI incident detection to internal reporting (target: <24 hours).`,
+
+      roadmap: `## 9. ROADMAP FOR AI ADOPTION: ADDRESSING REVENUE OPPORTUNITIES AND GOVERNANCE
+
+### Phase 1: Foundation (Months 1–6)
+Objective: Establish AI governance framework and compliance baseline; secure executive commitment.
+
+Key actions:
+- Establish AI Governance Committee and appoint an executive AI Governance Lead.
+- Inventory current and planned AI initiatives; assess Privacy Act alignment and risk profile.
+- Define AI Governance Standard and AI Impact Assessment process.
+- Initiate Privacy Act automated decision-making compliance programme.
+- Deliver Board education on AI risks, governance expectations and the Deloitte Trustworthy AI lens.
+
+### Phase 2: Governance Embedding (Months 7–12)
+Objective: Implement core controls and demonstrate operation; address high-risk gaps.
+
+Key actions:
+- Embed AI Impact Assessment as a mandatory gate for new AI initiatives.
+- Make Privacy Impact Assessment mandatory where personal data is processed.
+- Implement decision logging and audit trail capabilities for automated decisions.
+- Define and implement fairness testing protocols for high-risk models.
+- Roll out staff training on AI governance, privacy and responsible AI.
+
+### Phase 3: Scaling Responsible AI (Months 13–24)
+Objective: Scale high-value AI initiatives with embedded governance; complete Privacy Act Tranche 1 compliance.
+
+Key actions:
+- Launch 1–3 priority AI initiatives (e.g., analytics platform, personalisation, operational optimisation) with full governance controls.
+- Complete implementation of automated decision-making transparency controls ahead of the December 2026 deadline.
+- Deploy fairness monitoring dashboards and AI incident response processes.
+- Update vendor contracts to reflect data protection, fairness and transparency expectations.
+
+### Phase 4: Advanced Maturity and Continuous Improvement (Year 3+)
+Objective: Optimise AI ROI and achieve leading AI governance maturity.
+
+Key actions:
+- Consider ISO 42001 certification once internal processes are consistently operating.
+- Explore advanced and generative AI use cases with robust governance around hallucination, IP, safety and bias.
+- Use internal metrics and external benchmarks to drive continuous improvement in AI governance.
+- Evolve governance as Australian and international regulation develops (e.g., incident reporting, sector-specific standards).`,
+
+      promptSummary: `Role: You are a research analyst for a professional services firm.
+Task: Draft a Trustworthy AI brief for a partner.
+Objective: Provide an overview of how Trustworthy AI principles and AI governance concepts apply to {{ORG_NAME}}.
+
+Context:
+- Industry sector: {{SECTOR_LABEL}}
+- Primary geography: {{LOCATION_LABEL}}
+- Use Deloitte Trustworthy AI Framework (TAIF), Deloitte Path to Scale 2.0, Australian Government Guidance for AI Adoption, ISO 42001:2023 Artificial Intelligence Management System, NIST AI Risk Management Framework, NIST Generative AI Risk Management Profile, Australian Government guidance on how existing legislation applies to AI, and OECD AI Incidents and Hazards Monitor as key reference points.
+
+Structure:
+1. Company overview – less than 100 words
+2. Key strategic AI opportunities, issues and challenges for {{ORG_NAME}} in {{SECTOR_LABEL}}
+3. Overview of relevant local and international AI regulations and legislation
+4. Published local and international AI success stories for {{SECTOR_LABEL}} and known industry challenges
+5. Published local and international AI incidents for {{SECTOR_LABEL}}
+6. Which elements of Deloitte TAIF, AI Governance and AI Risk Management best practices would have prevented such incidents
+7. Three risk management controls and associated metrics for each selected TAIF element
+8. Board accountability for governing AI use cases at {{ORG_NAME}}
+9. Roadmap for AI to address revenue opportunities and organisational challenges, with a strong governance lens
+10. Key roles and responsibilities for executing the roadmap.
+
+Editorial instructions:
+- Keep language succinct.
+- Stick to the facts.
+- If unsure, clearly flag assumptions or information gaps.
+- Label early drafts as "draft" and final as "final for review".`
+    };
+
+    function generateBrief() {
+      const orgName = document.getElementById('orgName').value.trim();
+      const industry = document.getElementById('industry').value;
+      const location = document.getElementById('location').value;
+
+      if (!orgName) {
+        alert('Please enter an organisation name.');
+        return;
+      }
+
+      const sectorLabels = {
+        retail: 'Retail & Shopping Centres',
+        finance: 'Financial Services',
+        healthcare: 'Healthcare',
+        technology: 'Technology & Software',
+        manufacturing: 'Manufacturing',
+        energy: 'Energy & Utilities',
+        telecommunications: 'Telecommunications',
+        logistics: 'Logistics & Supply Chain',
+        other: 'General Commercial'
+      };
+      const locationLabels = {
+        australia: 'Australia',
+        'au-nz': 'Australia and New Zealand',
+        global: 'Global with Australian operations'
+      };
+
+      let sectorKey = 'generic';
+      if (industry === 'retail') sectorKey = 'retail';
+      else if (industry === 'finance') sectorKey = 'finance';
+      else if (industry === 'healthcare') sectorKey = 'healthcare';
+
+      const sectorLabel = sectorLabels[industry] || 'General Commercial';
+      const locationLabel = locationLabels[location] || 'Australia';
+
+      const sectorText = sectorSnippets[sectorKey].opportunities;
+
+      const executive = templateData.executiveSummary.replace(/{{ORG_NAME}}/g, orgName);
+      const company = templateData.companyOverview.replace(/{{ORG_NAME}}/g, orgName);
+      const opportunities = templateData.opportunitiesBase
+        .replace('{{SECTOR_OPPS}}', sectorText)
+        .replace(/{{ORG_NAME}}/g, orgName);
+      const regulations = templateData.regulations.replace(/{{ORG_NAME}}/g, orgName);
+      const controls = templateData.controls.replace(/{{ORG_NAME}}/g, orgName);
+      const roadmap = templateData.roadmap.replace(/{{ORG_NAME}}/g, orgName);
+
+      const promptText = templateData.promptSummary
+        .replace(/{{ORG_NAME}}/g, orgName)
+        .replace(/{{SECTOR_LABEL}}/g, sectorLabel)
+        .replace(/{{LOCATION_LABEL}}/g, locationLabel);
+
+      document.getElementById('outputSection').classList.add('visible');
+      document.getElementById('executive-output').textContent = executive;
+      document.getElementById('company-output').textContent = company;
+      document.getElementById('opportunities-output').textContent = opportunities;
+      document.getElementById('regulations-output').textContent = regulations;
+      document.getElementById('controls-output').textContent = controls;
+      document.getElementById('roadmap-output').textContent = roadmap;
+      document.getElementById('prompt-output').textContent = promptText;
+
+      const fullDoc = executive + '\n\n---\n\n' +
+        company + '\n\n---\n\n' +
+        opportunities + '\n\n---\n\n' +
+        regulations + '\n\n---\n\n' +
+        controls + '\n\n---\n\n' +
+        roadmap;
+
+      document.getElementById('all-output').textContent = fullDoc;
+
+      const successMsg = document.getElementById('successMessage');
+      successMsg.classList.add('show');
+      setTimeout(() => successMsg.classList.remove('show'), 3000);
+
+      document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function switchTab(ev, tabName) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      ev.target.classList.add('active');
+    }
+
+    function copyAllToClipboard() {
+      const content = document.getElementById('all-output').textContent;
+      if (!content) {
+        alert('Please generate a brief first.');
+        return;
+      }
+      navigator.clipboard.writeText(content).then(() => {
+        alert('Brief copied to clipboard.');
+      }).catch(err => {
+        alert('Failed to copy: ' + err);
+      });
+    }
+
+    function downloadAsMD() {
+      const orgName = document.getElementById('orgName').value.trim() || 'organisation';
+      const content = document.getElementById('all-output').textContent;
+      if (!content) {
+        alert('Please generate a brief first.');
+        return;
+      }
+      const a = document.createElement('a');
+      a.setAttribute('href', 'data:text/markdown;charset=utf-8,' + encodeURIComponent(content));
+      a.setAttribute('download', `${orgName.replace(/\\s+/g, '_')}_Trustworthy_AI_Brief.md`);
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function clearForm() {
+      document.getElementById('orgName').value = '';
+      document.getElementById('industry').value = 'retail';
+      document.getElementById('location').value = 'australia';
+      document.getElementById('outputSection').classList.remove('visible');
+    }
+
+    function toggleFullscreen() {
+      const outputSection = document.getElementById('outputSection');
+      const isFullscreen = outputSection.dataset.fullscreen === 'true';
+      if (isFullscreen) {
+        outputSection.style.position = '';
+        outputSection.style.top = '';
+        outputSection.style.left = '';
+        outputSection.style.right = '';
+        outputSection.style.bottom = '';
+        outputSection.style.zIndex = '';
+        outputSection.style.maxHeight = '';
+        outputSection.style.width = '';
+        outputSection.style.borderRadius = '';
+        outputSection.style.overflow = '';
+        outputSection.dataset.fullscreen = 'false';
+      } else {
+        outputSection.style.position = 'fixed';
+        outputSection.style.top = '0';
+        outputSection.style.left = '0';
+        outputSection.style.right = '0';
+        outputSection.style.bottom = '0';
+        outputSection.style.zIndex = '10000';
+        outputSection.style.maxHeight = '100vh';
+        outputSection.style.width = '100vw';
+        outputSection.style.borderRadius = '0';
+        outputSection.style.overflow = 'auto';
+        outputSection.dataset.fullscreen = 'true';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('orgName').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') generateBrief();
+      });
+    });
+  </script>
+</body>
+</html>
