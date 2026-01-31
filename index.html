@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trustworthy AI Brief Generator</title>
+  <title>Trustworthy AI Deep Research Brief Generator</title>
   <style>
     :root {
       --color-background: #f5f5f5;
@@ -205,8 +205,8 @@
 <body>
   <header>
     <div class="container">
-      <div class="logo">🤖 Trustworthy AI Brief Generator</div>
-      <p class="subtitle">Generate a Deloitte-style Trustworthy AI brief tailored to your organisation, sector and geography.</p>
+      <div class="logo">🤖 Trustworthy AI Deep Research Brief Generator</div>
+      <p class="subtitle">Generate a Deloitte-style, deep-research Trustworthy AI brief template for any organisation.</p>
     </div>
   </header>
 
@@ -214,7 +214,7 @@
     <div class="input-section">
       <h2>Organisation Details</h2>
       <p class="section-description">
-        Enter the basic details and this tool will generate a complete Trustworthy AI brief you can refine for your client or internal stakeholders.
+        Enter basic details and this tool will generate a brief structure plus a research-grade prompt you can paste into an agentic AI or research assistant.
       </p>
 
       <div class="form-group">
@@ -224,7 +224,7 @@
           id="orgName"
           placeholder="e.g., Scentre Group, Acme Retail Holdings, GlobalBank Ltd."
         >
-        <p class="form-description">The organisation name is substituted throughout the brief and prompt.</p>
+        <p class="form-description">The organisation name is substituted throughout the brief and the deep research prompt.</p>
       </div>
 
       <div class="form-group">
@@ -240,7 +240,7 @@
           <option value="logistics">Logistics & Supply Chain</option>
           <option value="other">Other / General Commercial</option>
         </select>
-        <p class="form-description">Used to tailor examples of AI opportunities and risks.</p>
+        <p class="form-description">Used to tailor examples of AI opportunities and risks, and the research prompt.</p>
       </div>
 
       <div class="form-group">
@@ -250,27 +250,28 @@
           <option value="au-nz">Australia & New Zealand</option>
           <option value="global">Global with Australian operations</option>
         </select>
-        <p class="form-description">Used mainly for the prompt and regulatory emphasis.</p>
+        <p class="form-description">Used mainly for the regulatory lens in the prompt.</p>
       </div>
 
       <div class="info-box">
-        <strong>Tip:</strong> This generator is optimised for Australian use cases with Deloitte Trustworthy AI, Path to Scale, Australian Government Guidance for AI
-        Adoption, ISO 42001, NIST AI RMF and OECD AI incident concepts in mind. Use the “Prompt Summary” tab to reuse this pattern in other tools.
+        <strong>How to use:</strong> Generate the brief, then:
+        - Use the **Prompt Summary** tab as a deep-research instruction for an AI agent or research tool.
+        - Use the other tabs as a starting structure for your written brief.
       </div>
 
       <div class="button-group">
         <button class="btn-primary" onclick="generateBrief()">
-          ✨ Generate Brief
+          ✨ Generate Brief & Research Prompt
         </button>
         <button class="btn-secondary" onclick="clearForm()">Clear</button>
       </div>
     </div>
 
     <div class="output-section" id="outputSection">
-      <h2>Generated Brief</h2>
+      <h2>Generated Content</h2>
 
       <div class="success-message" id="successMessage">
-        ✓ Brief generated successfully. Use the tabs to navigate sections, copy all, or download as Markdown.
+        ✓ Brief and deep research prompt generated. Use the tabs to navigate sections or copy everything.
       </div>
 
       <div class="output-controls">
@@ -292,7 +293,7 @@
         <button class="tab-button" onclick="switchTab(event, 'regulations')">Regulations</button>
         <button class="tab-button" onclick="switchTab(event, 'controls')">Controls & Metrics</button>
         <button class="tab-button" onclick="switchTab(event, 'roadmap')">Roadmap</button>
-        <button class="tab-button" onclick="switchTab(event, 'prompt')">Prompt Summary</button>
+        <button class="tab-button" onclick="switchTab(event, 'prompt')">Deep Research Prompt</button>
         <button class="tab-button" onclick="switchTab(event, 'all')">Full Document</button>
       </div>
 
@@ -380,33 +381,32 @@
 
 ## EXECUTIVE SUMMARY
 
-This brief provides {{ORG_NAME}} with a comprehensive framework for adopting Trustworthy AI principles aligned with the Deloitte Trustworthy AI Framework (TAIF), Australian regulatory requirements, and international standards (ISO 42001, NIST AI RMF). The brief identifies material AI value and revenue opportunities whilst establishing governance controls to address regulatory compliance (including Privacy Act 1988 automated decision-making requirements, with a key deadline in December 2026 for transparency obligations) and regulatory/reputational risks evidenced by recent sector incidents.
+This brief provides {{ORG_NAME}} with a framework for adopting Trustworthy AI principles aligned with the Deloitte Trustworthy AI Framework (TAIF), Australian regulatory requirements, and international standards (ISO 42001, NIST AI RMF). It is designed as a scaffold for deep, source-backed research rather than a static recommendation.
 
-The roadmap recommends phased implementation over three years: Foundation (governance establishment), Governance Embedding (Privacy Act compliance and control build-out), Scaling Responsible AI (revenue and efficiency initiatives with embedded controls), and Advanced Maturity (ISO 42001 certification and next-generation AI applications). Success requires executive accountability, dedicated governance resources, and a cultural shift toward “building AI risk managers, not AI risk avoiders”.`,
+The intent is to support a multi-step, agentic research workflow that identifies material AI value opportunities, sector-relevant risks and incidents, and governance controls required to scale AI responsibly (consistent with Deloitte Path to Scale 2.0).`,
 
       companyOverview: `## 1. COMPANY OVERVIEW
 
 {{ORG_NAME}} operates in a competitive landscape with increasing reliance on data, analytics and digital channels. The organisation has invested in technology infrastructure and emerging AI capabilities across its operations. Current AI usage typically includes analytics, reporting and some automation, with significant upside in scaling AI in a governed, risk-aware manner.
 
-Key characteristics to validate in client conversations:
-- Material asset base and scale of operations
-- Multiple operating sites, channels or product lines
-- Diverse stakeholder base (customers, partners, regulators, communities)
-- Established technology and data infrastructure
-- Strategic focus on customer/tenant experience, operational efficiency and risk management`,
+Key characteristics to validate via research:
+- Core business model and main revenue streams.
+- Geographic footprint (with emphasis on Australian operations).
+- Key stakeholder groups (customers, tenants/partners, regulators, communities).
+- Current digital/AI maturity and notable initiatives mentioned in public sources.`,
 
       opportunitiesBase: `## 2. KEY STRATEGIC AI OPPORTUNITIES, ISSUES AND CHALLENGES
 
-### Cross-Cutting Revenue & Value Opportunities
+### Cross-Cutting Revenue & Value Opportunities (to be validated with research)
 - Data-driven analytics platforms leveraging first-party operational data to provide stakeholders with precision insights and measurable ROI.
-- Personalised experiences and dynamic engagement across channels; benchmarks indicate 25–35% conversion uplift from well-governed personalisation.
+- Personalised experiences and dynamic engagement across channels; literature suggests 25–35% conversion uplift from well-governed personalisation.
 - Operational intelligence through predictive analytics for performance measurement, asset optimisation and resource allocation.
 - Operational excellence via predictive maintenance, energy optimisation and workflow automation reducing capex and opex.
 - Sustainability analytics tracking environmental performance and supporting ESG reporting.
 
 {{SECTOR_OPPS}}
 
-### Cross-Cutting Commercial and Regulatory Challenges
+### Cross-Cutting Commercial and Regulatory Challenges (to be refined per sector)
 - Privacy and data risk from collection and use of personal and sensitive information, particularly where automated decisions “significantly affect” individuals.
 - Algorithmic fairness and discrimination risk, including biased outcomes in eligibility, pricing, targeting or service access.
 - Privacy Act 1988 compliance for automated decision-making by December 2026 (transparency, logging, explainability, human review, notification, consent).
@@ -414,157 +414,129 @@ Key characteristics to validate in client conversations:
 - Vendor and third-party risk from external AI providers and cloud platforms handling sensitive data.
 - Organisational AI maturity: gaps in governance, roles, controls and AI literacy at Board, executive and operational levels.`,
 
-      regulations: `## 3. RELEVANT LOCAL AND INTERNATIONAL ARTIFICIAL INTELLIGENCE REGULATIONS AND LEGISLATION
+      regulations: `## 3. RELEVANT LOCAL AND INTERNATIONAL AI REGULATIONS AND LEGISLATION
+
+(Use deep research to populate; headings scaffold the analysis.)
 
 ### Australia
-
-**Privacy Act 1988 (Cth) – Automated Decision-Making Transparency Provisions**
-- Scope: Organisations using personal information in automated decision-making that “significantly affects rights or interests” must comply by December 10, 2026 (Tranche 1).
-- Key requirements:
-  - Update privacy policies disclosing automated decision-making use, data types and decision categories.
-  - Notify individuals about automated decisions affecting them.
-  - Provide decision explanations upon request.
-  - Offer meaningful human review options for significant decisions.
-- Technical controls:
-  - Decision logging and audit trails.
-  - Explainability mechanisms.
-  - Human review workflows.
-  - Transparency notifications.
-  - Consent management.
-- Penalties: Administrative sanctions and potential Court-imposed penalties for serious non-compliance.
-
-**Australian Consumer Law (ACL)**
-- Prohibits misleading or deceptive conduct in trade or commerce (relevant to AI-driven marketing, pricing and claim substantiation).
-- Product liability for defects in AI-enabled goods/services creating safety risks.
-- Consumer guarantees requiring AI-enabled products and services to meet acceptable quality and fitness-for-purpose standards.
-
-**Guidance for AI Adoption (GfAA) – October 2025**
-- Six essential practices: Accountability, Understanding Impacts, Responsible Design/Development, Secure Deployment, Measurement/Monitoring, and Remediation.
-- Non-binding guidance that sets an expected benchmark for responsible AI governance in Australia.
+- Privacy Act 1988 (Cth) – including automated decision-making transparency reforms (Tranche 1 around December 2026) and any subsequent tranches.
+- Australian Consumer Law – misleading/deceptive conduct, unfair practices, product liability and consumer guarantees as they relate to AI-enabled products/services.
+- Sector-specific obligations (e.g. APRA/ASIC for finance, health records laws for healthcare, critical infrastructure obligations where relevant).
+- Australian Government Guidance for AI Adoption and any national AI assurance or safety frameworks.
 
 ### International Standards and Frameworks
-
-**ISO 42001:2023 – Artificial Intelligence Management System (AIMS)**
-- Management system standard for developing, deploying and maintaining responsible AI systems.
-- Emphasises governance structures, risk and impact assessments, data protection, security and continuous improvement.
-- Certification available through accredited bodies; increasingly used to demonstrate AI governance maturity.
-
-**NIST AI Risk Management Framework (AI RMF 1.0)**
-- Four core functions: Govern, Map, Measure, Manage, applied across the AI lifecycle.
-- Provides a structured approach to identifying, assessing and managing AI risks, including generative AI-specific considerations through the NIST GAI Profile.`,
+- ISO/IEC 42001:2023 Artificial Intelligence Management System (AIMS) – governance and management system requirements.
+- NIST AI Risk Management Framework (AI RMF 1.0) – Govern, Map, Measure, Manage functions.
+- NIST Generative AI Risk Management Profile – GAI-specific risks and controls (confabulation, copyright, safety, etc.).
+- OECD AI Incidents & Hazards Monitor – incident taxonomy and reporting practices relevant to the sector.`,
 
       controls: `## 7. RECOMMENDED RISK MANAGEMENT CONTROLS AND ASSOCIATED METRICS
 
-### Framework: Five Priority Themes Aligned to Deloitte TAIF
+(Deep research should map these to concrete sector examples. Below is a generic scaffold.)
 
-**Priority 1: Transparent and Explainable AI**
-- Privacy Impact Assessment, Customer Transparency and Notification, Decision Audit Trails.
+### Priority Themes Aligned to Deloitte TAIF
 
-**Priority 2: Fair and Impartial AI**
-- Pre-Deployment Bias and Fairness Testing, Ongoing Fairness Monitoring, Model Retraining and Bias Mitigation.
+1. Transparent and Explainable AI
+2. Fair and Impartial AI
+3. Privacy and Secure AI
+4. Robust and Reliable AI
+5. Responsible, Accountable and Contestable AI
 
-**Priority 3: Privacy and Secure AI**
-- Data Minimisation and Purpose Limitation, Consent and Opt-Out Mechanisms, Security Controls and Vendor Risk Management.
+For each selected TAIF element, the research output should specify:
+- 3 concrete controls (process, technical or organisational).
+- 2–4 practical metrics per control (coverage, timeliness, quality, incident rates).
 
-**Priority 4: Robust and Reliable AI**
-- Model Validation, Testing, and Performance Monitoring, Human Oversight, Edge Case Documentation.
-
-**Priority 5: Responsible, Accountable and Contestable AI**
-- Governance Structure and Accountability, Decision Audit Trails and Contestation, Incident Response.
-
-### Example Metrics by Priority
-
-**Priority 1: Transparent and Explainable AI**
-- % of AI projects with documented Privacy Impact Assessment prior to deployment (target: 100%).
-- % of AI use cases with customer-facing disclosure where personal data is processed (target: 100%).
-- % of automated decisions with complete audit trails (target: 100%).
-
-**Priority 2: Fair and Impartial AI**
-- % of AI models with documented fairness testing across relevant subgroups (target: 100% for high-risk models).
-- Maximum variance in key performance metrics across demographic groups (target: <2%).
-- Average time from fairness issue detection to governance review (target: <1 week).
-
-**Priority 3: Privacy and Secure AI**
-- % of personal data encrypted at rest and in transit (target: 100% for sensitive data).
-- % of third-party AI vendors with documented security and privacy assessments (target: 100%).
-- Average time to process opt-out or access requests (target: <5 business days).
-
-**Priority 4: Robust and Reliable AI**
-- % of AI models with documented validation results before go-live (target: 100%).
-- Variance between in-production and baseline model accuracy (target: <1% over defined periods).
-- % of high-risk decisions subject to human review (target: 100%).
-
-**Priority 5: Responsible, Accountable and Contestable AI**
-- AI Governance Committee meeting frequency (target: at least monthly).
-- Average time to respond to customer/tenant decision contestation (target: <5 business days).
-- Average time from AI incident detection to internal reporting (target: <24 hours).`,
+Examples (to be tailored per {{ORG_NAME}} and sector):
+- % of AI projects with documented AI/Privacy Impact Assessment pre-deployment.
+- % of high-risk models with fairness testing and monitoring.
+- Time to detect and report AI incidents.
+- % of automated decisions with complete audit trails and human review options.`,
 
       roadmap: `## 9. ROADMAP FOR AI ADOPTION: ADDRESSING REVENUE OPPORTUNITIES AND GOVERNANCE
 
-### Phase 1: Foundation (Months 1–6)
-Objective: Establish AI governance framework and compliance baseline; secure executive commitment.
+(Deep research should propose a 3–4 phase roadmap. Below is a structure to fill.)
 
-Key actions:
-- Establish AI Governance Committee and appoint an executive AI Governance Lead.
-- Inventory current and planned AI initiatives; assess Privacy Act alignment and risk profile.
-- Define AI Governance Standard and AI Impact Assessment process.
-- Initiate Privacy Act automated decision-making compliance programme.
-- Deliver Board education on AI risks, governance expectations and the Deloitte Trustworthy AI lens.
+### Phase 1: Foundation (Months 1–6)
+- Establish governance (AI Governance Committee, executive AI lead).
+- Inventory AI use cases and data assets.
+- Baseline against TAIF, NIST AI RMF and ISO 42001 concepts.
+- Plan Privacy Act automated decision-making compliance (where applicable).
 
 ### Phase 2: Governance Embedding (Months 7–12)
-Objective: Implement core controls and demonstrate operation; address high-risk gaps.
-
-Key actions:
-- Embed AI Impact Assessment as a mandatory gate for new AI initiatives.
-- Make Privacy Impact Assessment mandatory where personal data is processed.
-- Implement decision logging and audit trail capabilities for automated decisions.
-- Define and implement fairness testing protocols for high-risk models.
-- Roll out staff training on AI governance, privacy and responsible AI.
+- Implement core governance controls and guardrails.
+- Prioritise high-risk/high-value AI initiatives for enhanced oversight.
+- Start targeted pilots with embedded governance.
 
 ### Phase 3: Scaling Responsible AI (Months 13–24)
-Objective: Scale high-value AI initiatives with embedded governance; complete Privacy Act Tranche 1 compliance.
+- Scale proven AI initiatives with robust controls.
+- Complete key regulatory compliance obligations.
+- Integrate AI governance into BAU risk, audit and assurance processes.
 
-Key actions:
-- Launch 1–3 priority AI initiatives (e.g., analytics platform, personalisation, operational optimisation) with full governance controls.
-- Complete implementation of automated decision-making transparency controls ahead of the December 2026 deadline.
-- Deploy fairness monitoring dashboards and AI incident response processes.
-- Update vendor contracts to reflect data protection, fairness and transparency expectations.
+### Phase 4: Advanced Maturity (Year 3+)
+- Consider ISO 42001 certification and advanced generative AI use cases.
+- Continual improvement based on incidents, metrics and regulatory evolution.`,
 
-### Phase 4: Advanced Maturity and Continuous Improvement (Year 3+)
-Objective: Optimise AI ROI and achieve leading AI governance maturity.
+      promptSummary: `Role: You are a senior research analyst in a professional services firm, preparing a board-level briefing on AI governance and Trustworthy AI.
 
-Key actions:
-- Consider ISO 42001 certification once internal processes are consistently operating.
-- Explore advanced and generative AI use cases with robust governance around hallucination, IP, safety and bias.
-- Use internal metrics and external benchmarks to drive continuous improvement in AI governance.
-- Evolve governance as Australian and international regulation develops (e.g., incident reporting, sector-specific standards).`,
+Task: Conduct deep, source-backed research and draft a Trustworthy AI brief for a partner.
 
-      promptSummary: `Role: You are a research analyst for a professional services firm.
-Task: Draft a Trustworthy AI brief for a partner.
-Objective: Provide an overview of how Trustworthy AI principles and AI governance concepts apply to {{ORG_NAME}}.
-
-Context:
+Primary subject:
+- Organisation: {{ORG_NAME}}
 - Industry sector: {{SECTOR_LABEL}}
 - Primary geography: {{LOCATION_LABEL}}
-- Use Deloitte Trustworthy AI Framework (TAIF), Deloitte Path to Scale 2.0, Australian Government Guidance for AI Adoption, ISO 42001:2023 Artificial Intelligence Management System, NIST AI Risk Management Framework, NIST Generative AI Risk Management Profile, Australian Government guidance on how existing legislation applies to AI, and OECD AI Incidents and Hazards Monitor as key reference points.
 
-Structure:
-1. Company overview – less than 100 words
-2. Key strategic AI opportunities, issues and challenges for {{ORG_NAME}} in {{SECTOR_LABEL}}
-3. Overview of relevant local and international AI regulations and legislation
-4. Published local and international AI success stories for {{SECTOR_LABEL}} and known industry challenges
-5. Published local and international AI incidents for {{SECTOR_LABEL}}
-6. Which elements of Deloitte TAIF, AI Governance and AI Risk Management best practices would have prevented such incidents
-7. Three risk management controls and associated metrics for each selected TAIF element
-8. Board accountability for governing AI use cases at {{ORG_NAME}}
-9. Roadmap for AI to address revenue opportunities and organisational challenges, with a strong governance lens
-10. Key roles and responsibilities for executing the roadmap.
+Research objectives:
+1. Map how Trustworthy AI principles and AI governance concepts apply specifically to {{ORG_NAME}} and its sector.
+2. Identify sector-relevant AI opportunities, risks, success stories and incidents based on current, credible sources.
+3. Align recommendations with leading AI governance frameworks and emerging Australian regulatory expectations.
+
+Required research steps (perform these before drafting the final brief):
+- For {{ORG_NAME}}:
+  - Identify the business model, major revenue streams, geographic footprint, key stakeholders, and current digital/AI maturity using up-to-date sources.
+- For the sector ({{SECTOR_LABEL}}):
+  - Identify 5–10 current AI use cases (globally) that are commercially material or strategically important.
+  - Identify at least 3–5 well-documented AI “success stories” (case studies) and summarise outcomes (e.g. revenue uplift, cost reduction, risk reduction).
+  - Identify at least 3–5 relevant AI incidents (failures, harms, regulatory actions, safety or ethics issues) from credible sources, or closely adjacent sectors if none exist.
+- For governance frameworks:
+  - Summarise the core dimensions of the Deloitte Trustworthy AI Framework (TAIF) and how they apply to {{ORG_NAME}}.
+  - Summarise key points from Deloitte Path to Scale 2.0 relevant to governance, trust and operating model.
+  - Summarise the main requirements and concepts in:
+    - Australian Government “Guidance for AI Adoption”
+    - ISO/IEC 42001:2023 Artificial Intelligence Management System (AIMS)
+    - NIST AI Risk Management Framework
+    - NIST Generative AI Risk Management Profile
+    - Australian Government guidance on how existing legislation (Privacy Act 1988, Australian Consumer Law, sectoral rules) applies to AI
+    - OECD AI Incidents & Hazards Monitor (AIM), focusing on incidents related to {{SECTOR_LABEL}} or similar sectors.
+- For regulation and Australian context:
+  - Identify current and near-term AI-relevant regulatory developments in Australia (e.g. Privacy Act reform and automated decision-making transparency obligations around December 2026, national AI assurance frameworks, sector-specific guidance where applicable).
+  - Highlight any existing enforcement actions or formal findings relevant to the sector (e.g. OAIC determinations, ACCC matters, sector regulators).
+
+Synthesis requirements:
+- Cross-check key facts across at least two credible sources where possible.
+- Clearly distinguish:
+  - Facts (well-evidenced, sourced)
+  - Interpretations (your analysis)
+  - Assumptions or gaps (explicitly flagged)
+- Prioritise recent sources (last 3–4 years) for incidents, regulations and adoption patterns.
+- When sector-specific examples are sparse, use adjacent sectors with similar risk profiles and briefly explain the analogy.
+
+Output structure (mirror this exactly in the final brief):
+1. Company overview – less than 100 words, sourced and up to date.
+2. Key strategic AI opportunities, issues and challenges for {{ORG_NAME}} and {{SECTOR_LABEL}}.
+3. Overview of relevant local and international AI regulations and legislation affecting {{SECTOR_LABEL}}, with emphasis on Australian obligations.
+4. Published local and international AI success stories relevant to {{SECTOR_LABEL}} and known industry challenges (with brief metrics or outcomes where available).
+5. Published local and international AI incidents relevant to {{SECTOR_LABEL}} (or closest adjacent sectors if necessary), including what went wrong and why it matters.
+6. Which elements of Deloitte TAIF, AI Governance and AI Risk Management best practices would likely have prevented or mitigated these incidents (mapped explicitly).
+7. Three concrete risk management controls and associated metrics for each selected TAIF element, written so they are actionable for {{ORG_NAME}}.
+8. Board of Directors accountability for governing current and potential AI use cases at {{ORG_NAME}} (board charters, reporting, escalation, assurance).
+9. A 3–4 phase roadmap for AI at {{ORG_NAME}}: revenue/value opportunities, commercial/operational/technology challenges, with a strong governance lens (who does what, by when).
+10. Key roles and responsibilities in executing the roadmap (executive owners, committees, functional responsibilities).
 
 Editorial instructions:
-- Keep language succinct.
-- Stick to the facts.
-- If unsure, clearly flag assumptions or information gaps.
-- Label early drafts as "draft" and final as "final for review".`
+- Keep language succinct and suitable for senior executives/non-technical directors.
+- Stick to verifiable facts; where uncertain, explicitly flag as assumption or hypothesis.
+- Use clear headings and numbered or bulleted lists for readability.
+- Label the first version as "draft" and a refined version as "final for review".`
     };
 
     function generateBrief() {
@@ -672,7 +644,7 @@ Editorial instructions:
       }
       const a = document.createElement('a');
       a.setAttribute('href', 'data:text/markdown;charset=utf-8,' + encodeURIComponent(content));
-      a.setAttribute('download', `${orgName.replace(/\\s+/g, '_')}_Trustworthy_AI_Brief.md`);
+      a.setAttribute('download', `${orgName.replace(/\s+/g, '_')}_Trustworthy_AI_Brief_Scaffold.md`);
       a.style.display = 'none';
       document.body.appendChild(a);
       a.click();
