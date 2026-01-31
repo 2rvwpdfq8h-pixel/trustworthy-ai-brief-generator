@@ -230,15 +230,19 @@
       <div class="form-group">
         <label for="industry">Industry Sector</label>
         <select id="industry">
-          <option value="retail">Retail & Shopping Centres</option>
-          <option value="finance">Financial Services</option>
+          <option value="retail">Retail and Shopping Centres</option>
+          <option value="banking">Banking</option>
+          <option value="insurance">Insurance</option>
           <option value="healthcare">Healthcare</option>
-          <option value="technology">Technology & Software</option>
+          <option value="medical devices">Medical devices</option>
+          <option value="technology">Technology and Software</option>
           <option value="manufacturing">Manufacturing</option>
           <option value="energy">Energy & Utilities</option>
+          <option value="resources and mining">Resources and Mining</option>
           <option value="telecommunications">Telecommunications</option>
           <option value="logistics">Logistics & Supply Chain</option>
-          <option value="other">Other / General Commercial</option>
+          <option value="federal government">Federal Government</option>
+          <option value="state government">State Government</option>
         </select>
         <p class="form-description">Used to tailor examples of AI opportunities and risks, and the research prompt.</p>
       </div>
@@ -248,7 +252,7 @@
         <select id="location">
           <option value="australia">Australia Only</option>
           <option value="au-nz">Australia & New Zealand</option>
-          <option value="global">Global with Australian operations</option>
+          <option value="global">Australian with global operations</option>
         </select>
         <p class="form-description">Used mainly for the regulatory lens in the prompt.</p>
       </div>
@@ -287,35 +291,11 @@
       </div>
 
       <div class="tabs">
-        <button class="tab-button active" onclick="switchTab(event, 'executive')">Executive Summary</button>
-        <button class="tab-button" onclick="switchTab(event, 'company')">Company Overview</button>
-        <button class="tab-button" onclick="switchTab(event, 'opportunities')">Opportunities & Challenges</button>
-        <button class="tab-button" onclick="switchTab(event, 'regulations')">Regulations</button>
-        <button class="tab-button" onclick="switchTab(event, 'controls')">Controls & Metrics</button>
-        <button class="tab-button" onclick="switchTab(event, 'roadmap')">Roadmap</button>
         <button class="tab-button" onclick="switchTab(event, 'prompt')">Deep Research Prompt</button>
         <button class="tab-button" onclick="switchTab(event, 'all')">Full Document</button>
       </div>
 
-      <div id="executive" class="tab-content active">
-        <div class="output-content" id="executive-output"></div>
-      </div>
-      <div id="company" class="tab-content">
-        <div class="output-content" id="company-output"></div>
-      </div>
-      <div id="opportunities" class="tab-content">
-        <div class="output-content" id="opportunities-output"></div>
-      </div>
-      <div id="regulations" class="tab-content">
-        <div class="output-content" id="regulations-output"></div>
-      </div>
-      <div id="controls" class="tab-content">
-        <div class="output-content" id="controls-output"></div>
-      </div>
-      <div id="roadmap" class="tab-content">
-        <div class="output-content" id="roadmap-output"></div>
-      </div>
-      <div id="prompt" class="tab-content">
+   <div id="prompt" class="tab-content active">
         <div class="output-content" id="prompt-output"></div>
       </div>
       <div id="all" class="tab-content">
